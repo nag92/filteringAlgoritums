@@ -1,0 +1,55 @@
+
+# -*- coding: utf-8 -*-
+'''
+Created on Jun 27, 2015
+
+@author: nathaniel
+'''
+
+
+
+from matplotlib import matplotlib_fname
+import sys
+print 'version is:', sys.version
+
+import matplotlib as mpl
+mpl.rc("savefig", dpi=150)
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+
+df = pd.DataFrame.from_csv('/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/usbl_data.csv', index_col=None)
+print df
+
+
+df.plot(x='x', y='x', c='depth', kind='scatter')
+plt.axis('equal')
+
+df['time'] -= df['time'][0]
+df.plot(x='time', y='depth')
+t = [[50, 150],
+[170, 270],
+[300, 370],
+[420, 530],
+[550, 630],
+[650, 700],
+[760, 830],
+[840, 900],
+[930, 1020]]
+mu = pd.DataFrame(columns=['x', 'y', 'z','depth'])
+
+for i, ti in enumerate(t):
+    mu.loc[i] = df[(df['time'] > ti[0]) & (df['time'] < ti[1])][['x', 'y', 'z','depth']].mean()
+print mu
+
+mu.to_csv('usbl_data_mean.csv')
+
+fig, ax = plt.subplots(1, 1)
+for i, ti in enumerate(t[0::3]):
+    df[(df['time'] > ti[0]) & (df['time'] < ti[1])].plot(x='x', y='y', kind='scatter', ax=ax, color='b')
+    
+mu[::3].plot(x='x', y='y', kind='scatter', color='r', ax=ax)
+plt.axis("==")
+plt.title("depth={}")

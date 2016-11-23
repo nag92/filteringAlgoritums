@@ -1,0 +1,63 @@
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+from chardet.test import count
+import numpy as np
+class poly_filter(object):
+	'''
+	classdocs
+	'''
+
+
+	def __init__(self,window_size,degree):
+		'''
+		Constructor
+		'''
+		self.window = window_size
+		self.degree
+		self.degree = degree
+		self. y = []
+		self.x = []
+		self.count = 0
+		
+			
+			
+	def update(self, data):
+		
+		self.count = self.count + 1
+		self.x.append(self.count)
+		self.y.append(data)
+		x = []
+		weights = [1 for _ in xrange(self.window)]
+		isGood = True
+		if len(self.x) > self.window:
+			self.x.pop()
+			self.y.pop()
+			self.regress(self.y, self.x, weights)
+			
+	def regress(self, y,x,weights):
+		
+		my_x = self.make_x(x)
+		
+		temp1 = np.linalg.inv( my_x.T  * weights * my_x ) * my
+		
+		
+			
+			
+	def make_x(self, data):
+		m = []
+		for x in data:
+			temp = []
+			for y in xrange(self.degree+1):
+				temp.append(x**y)
+			m.append(temp) 
+			
+		return np.transpose(m)
+		
+			
+		
+		
+		
+		

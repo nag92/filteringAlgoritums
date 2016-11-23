@@ -1,0 +1,79 @@
+'''
+Created on Jul 3, 2015
+
+@author: nathaniel
+'''
+
+import matplotlib as mpl
+import pandas as pd
+import matplotlib.pyplot as plt
+import makeGraph
+import outlier_fitler
+import kalman_filter
+import numpy as np
+
+mpl.rc("savefig", dpi=150)
+#plt.ion()
+
+
+if __name__ == '__main__':
+    df = pd.DataFrame.from_csv('/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/usbl_data.csv', index_col=None)
+    #print df
+    my_x = df['x'].values.tolist()
+    my_y= df['y'].values.tolist()
+    my_z =  df['z'].values.tolist()
+    my_depth =  df['depth'].values.tolist()
+   
+
+    plt, ax = makeGraph.makeGraph()
+    
+    dt = 1
+    pos = np.matrix([[0],#v_x
+                     [0],#v_y
+                     [0],#v_z
+                     [0],#x
+                     [0],#y
+                     [0]])#z
+    A = np.matrix([[1,  0,  0,  0, 0, 0,],
+                   [0,  1,  0,  0, 0, 0,],
+                   [0,  0,  1,  0, 0, 0,],
+                   [dt, 0,  0,  0, 0, 0,],
+                   [0,  dt, 0,  0, 0, 0,],
+                   [0,  0,  dt, 0, 0, 0, ]])
+    B = np.matrix([0])
+    C = np.matrix([0,0,0,1,1,1])
+    Q = np.eye(pos.shape[0])*7
+    R = np.eye(pos.shape[0])*8
+    P = np.eye(pos.shape[0])
+    print p 
+    
+    kalman = kalman_filter.kalman_filter(A,B,C,Q,P,R,pos)
+    #plt.ion()
+    plt.show()
+    for i in xrange(len(my_x)):
+        if(outlier_fitler.outlier(my_x[i], my_y[i],my_depth[i] )):
+            ax.scatter(my_x[i], my_y[i],my_depth[i],color='b')
+        else:
+            ax.scatter(my_x[i], my_y[i],my_depth[i],color='r')
+        z = np.matrix([[0],#v_x
+                     [0],#v_y
+                     [0],#v_z
+                     [my_x[i]],#x
+                     [my_y[i]],#y
+                     [my_depth[i]]])#z
+        
+        u = np.matrix([0])
+        print u
+        kalman.move(np.matrix([0]),z)
+        pos = kalman.getState()
+        
+        plt.draw()
+
+
+    plt.ioff()
+    plt.show()
+
+
+
+
+

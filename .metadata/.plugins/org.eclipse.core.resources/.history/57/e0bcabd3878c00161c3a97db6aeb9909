@@ -1,0 +1,180 @@
+#!/usr/bin/python
+'''Created on Jul 10, 2015
+
+@author: nathaniel
+'''
+import kalman_filter
+import md_filter
+import poly_filter
+import matplotlib as mpl
+from operator import pos
+mpl.rc("savefig", dpi=150)
+import numpy as np  
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+mpl.rcParams.update({'font.size': 18})
+
+
+# kalman filter parameters 
+q = 5000
+r = .5000
+n = 10
+
+
+# # #  
+alpha = .25
+prop = 2.77
+
+# impoirt and save data f0rom CSV files
+df = pd.DataFrame.from_csv('/home/nathaniel/Documents/final thesis/0415/USBL_lives/usbl_pose.csv', index_col=None)
+df2 = pd.DataFrame.from_csv('/home/nathaniel/Documents/final thesis/0415/USBL_lives/pose.csv', index_col=None)
+
+my_x = df['field.pose.position.x'].values.tolist()
+my_y = df['field.pose.position.y'].values.tolist()
+my_z = df2['field.pose.position.z'].values.tolist()
+real_z = my_z
+#for i in xrange(len(my_z)):
+   #my_z[i] = -(1000 * my_z[i] - 101.325) / 9.81
+   # print my_z[i]
+
+
+md_filter = md_filter.md_filter(2,prop, n, [0, 1  ])
+poly_x = poly_filter.poly_filter(100,4)
+poly_y = poly_filter.poly_filter(100,4)
+
+new_x = []
+new_y = []
+new_z = []
+out_x = []
+out_y = []
+out_z = []
+t = range(0, len(my_x))
+count = []
+
+# kalman filter paramaters    
+dt = 2
+pos = np.matrix([[0],  # v_x
+                [0],  # v_y
+                [my_x[0]],  # x
+                [my_y[0]]])  # z
+A = np.matrix([ [1, 0, 0, 0, ],
+                [ 0, 1, 0, 0, ],
+                [dt, 0, 1, 0, ],
+                [0, dt, 0, 1, ]])
+B = np.matrix([0])
+C = np.eye(pos.shape[0])
+Q = np.eye(pos.shape[0]) * q
+R = np.eye(pos.shape[0]) * r
+P = np.eye(pos.shape[0])
+U = np.matrix([[0]])
+Z = np.matrix([[0], [0], [0], [0]])
+    
+kalman = kalman_filter.kalman_filter(A, B, C, Q, P, R, pos)
+
+# varible to hold the last position to for plotting reasons
+last = pos
+outliers = 0
+x_good = True
+y_good = True
+# loop through data
+for i in xrange(len(t)):
+    # if not outlier out it into kalman filter
+    x_good = True
+    y_good = True
+
+    if(md_filter.update([my_x[i], my_y[i]])):
+        outliers = outliers + 1
+        x_good = poly_x.update(my_x[i])
+        y_good= poly_y.update(my_y[i])
+        if x_good and y_good :
+            out_x.append(my_x[i])
+            out_y.append(my_y[i])
+            count.append(i)
+            Z = np.matrix([[0], [0], [my_x[i]], [my_y[i]] ])
+            kalman.move(U, Z)
+            pos = kalman.getState()
+            new_x.append(pos[2])
+            new_y.append(pos[3])
+            last = pos
+        else:
+            if len(out_x) == 0 :
+                
+                new_x.append(pos[2])       
+                new_y.append(pos[3])
+            else:   
+                new_x.append(new_x[len(new_x) - 1])
+                new_y.append(new_y[len(new_y) - 1])
+
+            
+            
+    else:        
+        if(len(out_x) == 0):
+            out_x.append(pos[2])
+            out_y.append(pos[3])
+        else:   
+            # print len(new_x)
+            out_x.append(out_x[len(out_x) - 1])
+            out_y.append(out_y[len(out_y) - 1])
+        
+        
+        if(len(new_x) == 0):
+            new_x.append(pos[2])
+            new_y.append(pos[3])
+        else:   
+            # print len(new_x)
+            new_x.append(new_x[len(new_x) - 1])
+            new_y.append(new_y[len(new_y) - 1])
+
+
+# plot the raw and filtered data
+
+
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.title("USBL lives")
+plt.xlabel('Time step')
+plt.ylabel('Distance (m)')
+# plt.title('Depth')
+my_z.pop(0)
+print t
+print my_x
+ax1.scatter(t, my_x, color='b', label='Raw X')
+ax1.scatter(t, my_y, color='r', label='Raw Y')
+#ax1.scatter(xrange(len(my_z)), my_z, color='k',label='z')
+print len(out_x)
+print len(t) 
+ax1.scatter(t, out_x, color='m', label='Outlier output X')
+ax1.scatter(t, out_y, color='k', label='Outlier output Y')
+ax1.scatter(t, new_x, color='g', label='Kalman output X')
+ax1.scatter(t, new_y, color='y', label='Kalman output Y')
+# ax1.text(1,6, 'n = ' + str(n),fontsize=20, bbox={'facecolor':'red', 'alpha':0.5, 'pad':20})
+#ax1.text(-10, 2, unicode(u"\u03B1")+ " =  "  +  str(alpha), fontsize=15)
+ax1.text(-10, +6,  "Kept =  "  + str(100* float(outliers)/float(len(t))) + "%", fontsize=15)
+
+#ax1.text(-25, 4, 'n=  ' + str(n) + '\n' + 'q = ' + str(q) + '\n' + 'r = ' + str(r) , fontsize=20, bbox={'facecolor':'red', 'alpha':0.5, 'pad':10})
+# ax2.scatter(t, new_z, color='g')
+legend = ax1.legend(loc='lower center', shadow=True)
+
+frame = legend.get_frame()
+for label in legend.get_texts():
+    label.set_fontsize('large')
+
+for label in legend.get_lines():
+    label.set_linewidth(1.5)  # the legend line width
+    
+    
+# fig = plt.figure()
+# ax2= fig.add_subplot(111, projection='3d')
+#     
+# ax2.set_xlabel('x(m)')
+# ax2.set_ylabel('y(m)')
+# ax2.set_zlabel('z(m)')
+# ax2.margins(0.1, None)    
+# ax2.scatter(new_x, new_y)
+print "good data = " + str(100* float(outliers)/float(len(t))) + "%"
+plt.show()
+
+        
+    

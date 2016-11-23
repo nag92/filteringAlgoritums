@@ -1,0 +1,127 @@
+'''
+Created on Oct 4, 2015
+
+@author: nathaniel
+'''
+
+
+import matplotlib as mpl
+mpl.rc("savefig", dpi=150)
+import numpy as np  
+import pandas as pd
+import matplotlib.pyplot as plt
+import md_filter
+import scipy.stats as stats
+import kalman_filter
+
+
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.xlabel('Time step')
+plt.ylabel('Distance (m)')
+
+accel = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/15_21_23/accel.csv', index_col=None)
+
+x = accel['field.twist.linear.x'].values.tolist()
+y = accel['field.twist.linear.y'].values.tolist()
+z = accel['field.twist.linear.z'].values.tolist()
+t = range(0, len(x))
+
+
+dt = .02
+
+pos = np.matrix([[0],  # v_x
+				[0],  # v_y
+				[0],  # v_z
+				[x[0]],  # x
+				[y[0]],  # y
+				[z[0]]])  # z
+A = np.matrix([[1, 0, 0, 0, 0, 0, ],
+			    [0, 1, 0, 0, 0, 0, ],
+				[0, 0, 1, 0, 0, 0, ],
+				[dt, 0, 0, 1, 0, 0, ],
+				[0, dt, 0, 0, 1, 0, ],
+				[0, 0, dt, 0, 0, 1, ]])
+B = np.matrix([0])
+C = np.eye(pos.shape[0])
+Q = np.eye(pos.shape[0]) * .05
+R = np.eye(pos.shape[0]) * 50000
+P = np.eye(pos.shape[0])
+U = np.matrix([[0]])
+Z = np.matrix([[0], [0], [0], [0], [0], [0] ])
+
+kalman = kalman_filter.kalman_filter(A, B, C, Q, P, R, pos)
+md_filter = md_filter.md_filter(3, [1.6,1.5],20, [-1,1])
+
+out_x = []
+out_y = []
+out_z = []
+
+new_x = []
+new_y = []
+new_z = []
+
+
+last = pos
+outliers = 0
+
+for i in xrange(len(t)):
+	if(md_filter.update([ x[i], y[i], z[i]])):
+		
+		out_x.append(x[i])
+		out_y.append(y[i])
+		out_z.append(z[i])
+		
+		Z = np.matrix([[0], [0], [0], [x[i]], [y[i]], [z[i]]])
+		U = np.matrix([[0]])
+		kalman.move(U, Z)
+		pos = kalman.getState()
+		
+		new_x.append(pos[3])
+		new_y.append(pos[4])
+		new_z.append(pos[5])
+		last = pos
+		
+	else:
+		outliers = outliers +1
+		
+		
+		if(len(out_x)==0):
+			out_x.append(last[3])
+			out_y.append(last[4])
+			out_z.append(last[5])
+		else:   
+			#print len(new_x)
+			out_x.append(out_x[len(out_x)-1])
+			out_y.append(out_y[len(out_y)-1])
+			out_z.append(out_z[len(out_z)-1])
+		
+		if(len(new_x)==0):
+			new_x.append(last[3])
+			new_y.append(last[4])
+			new_z.append(last[5])
+		else:   
+			#print len(new_x)
+			new_x.append(new_x[len(new_x)-1])
+			new_y.append(new_y[len(new_y)-1])
+			new_z.append(new_z[len(new_z)-1])
+
+
+
+
+ax1.scatter(t, x, color='k',label='x')
+ax1.scatter(t, new_x, color='k',label='x')
+#ax1.scatter(t, y, color='r',label='y')
+#ax1.scatter(t, z, color='b',label='z')
+
+legend = ax1.legend(loc='lower center', shadow=True)
+
+frame = legend.get_frame()
+for label in legend.get_texts():
+    label.set_fontsize('large')
+
+for label in legend.get_lines():
+    label.set_linewidth(1.5)  # the legend line width
+    
+plt.show()
+

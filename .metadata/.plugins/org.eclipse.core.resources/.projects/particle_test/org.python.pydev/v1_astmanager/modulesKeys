@@ -1,0 +1,6 @@
+MODULES_MANAGER_V2
+Particle_Filter|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/Particle_Filter.py
+full_particle_test|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/full_particle_test.py
+md_filter|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/md_filter.py
+poly_filter|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/poly_filter.py
+test_particle_filter|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/test_particle_filter.py

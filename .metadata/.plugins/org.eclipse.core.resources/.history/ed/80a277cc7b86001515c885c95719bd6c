@@ -1,0 +1,32 @@
+import poly_filter
+import random
+
+
+
+
+import matplotlib as mpl
+from operator import pos
+mpl.rc("savefig", dpi=150)
+import numpy as np  
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.title("New wieghting")
+plt.xlabel('Time step')
+plt.ylabel('Distance (m)')
+
+
+
+df = pd.DataFrame.from_csv('usbl_pose.csv', index_col=None)
+my_y = df['field.pose.position.y'].values.tolist()
+poly = poly_filter(100, 3)
+for i in xrange(my_y):
+	y =  my_y[i]
+	if poly.update(y):
+		ax1.scatter(i, y, color='b')
+	else:
+		ax1.scatter(i, y, color='r')
+		

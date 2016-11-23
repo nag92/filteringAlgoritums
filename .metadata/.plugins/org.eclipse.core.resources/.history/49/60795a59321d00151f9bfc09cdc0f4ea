@@ -1,0 +1,63 @@
+
+# -*- coding: utf-8 -*-
+'''
+Created on Jun 27, 2015
+
+@author: nathaniel
+'''
+
+
+
+from matplotlib import matplotlib_fname
+from mpl_toolkits.mplot3d import Axes3D
+import sys
+from matplotlib.pyplot import plot
+print 'version is:', sys.version
+
+import matplotlib as mpl
+mpl.rc("savefig", dpi=150)
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+
+df = pd.DataFrame.from_csv('/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/usbl_data.csv', index_col=None)
+#print df
+my_x = df['x'].values.tolist()
+my_y= df['y'].values.tolist()
+my_z =  df['z'].values.tolist()
+my_depth =  df['depth'].values.tolist()
+
+d1 = (my_x[0]*my_x[0]+my_y[0]*my_y[0]+my_z[0]*my_z[0] )**.5
+print d1
+filt_x = []
+filt_y = []
+filt_depth = [] 
+
+for i in xrange(len(my_x)-1):
+   
+    d2 = (my_x[i]*my_x[i]+my_y[i]*my_y[i]+my_z[i]*my_z[i] )**.5
+    delta = abs((d2-d1))
+    print delta
+    d1 = d2 
+    if(  delta < 1):
+        
+        filt_x.append( my_x[i])
+        filt_y.append(my_y[i])
+        filt_depth.append( my_depth[i])
+        
+
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax2 = fig.add_subplot(111, projection='3d')
+ax.scatter(my_x,my_y,my_depth)
+ax2.scatter(filt_x,filt_y,filt_depth)
+plt.show()
+
+
+
+
+
+

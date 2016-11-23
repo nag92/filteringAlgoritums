@@ -1,0 +1,6 @@
+MODULES_MANAGER_V2
+EKF|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/EKF.py
+EKF_test02|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/EKF_test02.py
+full_EKF_test|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/full_EKF_test.py
+md_filter|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/md_filter.py
+poly_filter|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/poly_filter.py

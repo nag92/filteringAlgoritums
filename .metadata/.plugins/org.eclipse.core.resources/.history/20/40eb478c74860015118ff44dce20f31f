@@ -1,0 +1,5 @@
+import poly_filter
+import random
+
+temp = [ random.uniform(1,10) for _ in xrange(100) ]
+poly = poly_filter.poly_filter(100, 3 )

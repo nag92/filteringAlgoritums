@@ -1,0 +1,103 @@
+
+# -*- coding: utf-8 -*-
+'''
+Created on Jun 27, 2015
+
+@author: nathaniel
+'''
+
+
+
+from matplotlib import matplotlib_fname
+from mpl_toolkits.mplot3d import Axes3D
+import sys
+from matplotlib.pyplot import plot
+from numpy import mean
+from cairo._cairo import Matrix
+print 'version is:', sys.version
+
+import matplotlib as mpl
+mpl.rc("savefig", dpi=150)
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+
+df = pd.DataFrame.from_csv('/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/usbl_data.csv', index_col=None)
+#print df
+my_x = df['x'].values.tolist()
+my_y= df['y'].values.tolist()
+my_z =  df['z'].values.tolist()
+my_depth =  df['depth'].values.tolist()
+
+d1 = (my_x[0]*my_x[0]+my_y[0]*my_y[0]+my_z[0]*my_z[0] )**.5
+
+filt_x = []
+filt_y = []
+filt_depth = [] 
+
+for i in xrange(len(my_x)-1):
+   
+    delta = ( (my_x[i]-my_x[i-1])**2+ (my_y[i]-my_y[i-1])**2+ (my_z[i]-my_z[i-1])**2 )**.5
+    
+   # print delta
+    if(  delta < 10):
+        filt_x.append( my_x[i])
+        filt_y.append(my_y[i])
+        filt_depth.append( my_depth[i])
+        
+
+
+
+def update(x,y):
+    
+    x_list.append(x)
+    y_list.append(y)
+    x_list.pop(0)
+    y_list.pop(0)
+    #print x_list
+    #print y_list
+    x_mean = mean(x_list)
+    y_mean = mean(y_list)
+    r = np.matrix( ((x_list - [x_mean]*n ),(y_list - [y_mean]*n)) ).T
+    #print x_mean
+    #print y_mean
+    cov = np.cov(x_list,y_list)
+    print cov
+    r_mean = np.matrix( ((x_mean),(y_mean)) ).T
+    #print r_mean
+    v = 0*((r[0] - r_mean) *(r[0]-r_mean).T)
+    print v
+    for i, ij in enumerate(r):
+        v +=((ij - r_mean) *(ij-r_mean).T)
+      #  print ij
+    #print v
+    
+
+
+n = 4
+x_list =[0]*n
+y_list = [0] *n
+
+update(2, 3)
+
+    
+    
+    
+
+
+'''
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax2 = fig.add_subplot(111, projection='3d')
+ax.scatter(my_x,my_y,my_depth)
+ax2.scatter(filt_x,filt_y,filt_depth)
+#plt.show()
+'''
+
+
+
+
+
+

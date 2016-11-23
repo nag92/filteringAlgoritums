@@ -1,0 +1,22 @@
+'''
+Created on Dec 7, 2015
+
+@author: nathaniel
+'''
+
+import poly_filter
+import random
+import numpy as np
+
+x = []
+y = []
+poly = poly_filter.poly_filter(10,4)
+for i in xrange(10):
+	y.append(i)
+	x.append(i) 
+
+for i in xrange(10):
+	weights.append(1)
+	 
+#print poly.regress(y, x, np.diag(weights))
+print poly.get_residuals(x,y,weights)

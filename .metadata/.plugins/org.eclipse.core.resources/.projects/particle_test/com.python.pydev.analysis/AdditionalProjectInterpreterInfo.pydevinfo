@@ -1,0 +1,85 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/nathaniel/Documents/pythonWorkSpace/.metadata/.plugins/org.eclipse.core.resources/.projects/particle_test/com.python.pydev.analysis/v2_indexcache
+poly_filter|1451913692000|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/poly_filter.py
+test_particle_filter|1451921655000|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/test_particle_filter.py
+Particle_Filter|1451681214000|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/Particle_Filter.py
+md_filter|1444854673000|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/md_filter.py
+full_particle_test|1451922606000|/home/nathaniel/Documents/pythonWorkSpace/particle_test/src/full_particle_test.py
+-- END DISKCACHE
+-- START DICTIONARY
+11
+10=md_filter.__init__
+5=poly_filter
+6=Particle_Filter.__init__
+7=poly_filter.update
+2=test_particle_filter
+9=md_filter.update
+8=poly_filter.__init__
+4=Particle_Filter
+3=md_filter
+11=Particle_Filter.update
+1=full_particle_test
+-- END DICTIONARY
+-- START TREE 1
+29
+alp|1|alpha!11@
+ax|1|ax!19@
+ax1|1|ax1!11@
+cou|1|count!11@
+df|1|df!11@
+f1|2|f1!11@f1!19@
+fra|2|frame!11@frame!19@
+las|1|last!11@
+leg|2|legend!11@legend!19@
+md_|2|md_filter!25@md_filter!11@
+mod|2|model!11@model!19@
+my_|2|my_y!11@my_x!11@
+n|1|n!11@
+new|3|new_z!11@new_y!11@new_x!11@
+out|4|out_x!11@out_z!11@outliers!11@out_y!11@
+par|4|particle_x!11@particle!19@particle_y!11@Particle_Filter!33@
+pol|3|poly_y!11@poly_x!11@poly_filter!41@
+pos|1|pos!11@
+pre|1|predicted_path!19@
+pro|1|prop!11@
+rea|1|real_path!19@
+sen|1|sensor!19@
+t|1|t!11@
+tem|2|temp_x!11@temp_y!11@
+tim|2|time!19@time!11@
+x|2|x!11@x!19@
+x_g|1|x_good!11@
+y_g|1|y_good!11@
+z|2|z!19@z!11@
+-- END TREE
+-- START TREE 2
+27
+M|1|M!6&35@
+__i|3|__init__!3&26@__init__!4&34@__init__!5&42@
+bis|1|bisquare!5&42@
+cou|4|count!7&43@count!8&43@count!9&27@count!10&27@
+deg|1|degree!8&43@
+dt|1|dt!6&35@
+fil|1|file!8&43@
+get|3|get_residuals!5&42@getNoise!3&26@getCoef!5&42@
+low|1|low_variance_resample!4&34@
+mak|1|make_x!5&42@
+md_|1|md_list!10&27@
+mod|1|model!6&35@
+noi|2|noise!9&27@noise!10&27@
+old|1|old_MSE!7&43@
+pre|2|pred_x!11&35@pred_x!6&35@
+ran|1|range!10&27@
+reg|1|regress!5&42@
+res|1|resample!4&34@
+sen|1|sensor!6&35@
+siz|1|size!10&27@
+tem|1|temp!3&27@
+thr|1|threshold!10&27@
+tim|3|time!11&35@time!6&35@time!7&43@
+upd|3|update!3&26@update!5&42@update!4&34@
+var|2|varence!6&35@var_list!10&27@
+win|2|window!8&43@window!10&27@
+x|1|x!8&43@
+-- END TREE

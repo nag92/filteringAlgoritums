@@ -1,0 +1,44 @@
+import numpy as np
+
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+power = lambda x,y: x**y
+exponents = zip(xrange(3))
+data = [1, 2, 3, 4]
+data = np.vstack(data)
+m = []
+for x in data:
+	temp = []
+	for y in xrange(3):
+		temp.append(x**y)
+	m.append(temp) 
+print np.transpose(m)
+	
+
+def regress(self, y,x,weights):
+		my_x = self.make_x(x)		
+		temp1 = np.linalg.inv( my_x.T  * weights * my_x ) * my_x * weights * y
+		
+				
+			
+			
+def make_x(self, data):
+	m = []
+	for x in data:
+		temp = []
+		for y in xrange(self.degree+1):
+			temp.append(x**y)
+			m.append(temp) 
+			
+	return np.transpose(m)
+
+
+
+y = [1,2,3 ]
+y = np.transpose(y)
+x =[1,2,3]
+print x
+print y

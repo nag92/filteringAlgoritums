@@ -1,0 +1,38 @@
+'''
+Created on Jul 3, 2015
+
+@author: nathaniel
+'''
+import numpy as np
+from Crypto.Util.number import size
+#step
+
+class kalman_filter:
+    def __init__(self,A,B,C,Q,P,R,x):
+        self.A = A
+        self.B = B
+        self.C = C
+        self.Q = Q
+        self.P = P
+        self.R = R
+        self.state = x
+    def move(self,u,z ):
+        self.predict(u)
+        self.update(z)
+    
+    def getState(self):
+        return self.state
+        
+    def predict(self,u):
+        self.state = self.A*self.state + self.B*u
+        self.P = self.A*self.P*self.A.T + self.Q
+    
+    def update(self,z):
+        y = self.P*(self.C.T)
+        K = y*np.linalg.inv((self.C*self.P*(self.C.T) +self.R))
+        self.state = self.state + K*(z - self.C*self.state)
+        size = self.state.shape[0]
+        self.P = (np.eye(size) - K*self.C )*self.P 
+        
+        
+    

@@ -1,0 +1,47 @@
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+from chardet.test import count
+
+class poly_filter(object):
+	'''
+	classdocs
+	'''
+
+
+	def __init__(self,window_size,degree):
+		'''
+		Constructor
+		'''
+		self.window = window_size
+		self.degree
+		self.degree = degree
+		self. y = []
+		self.x = []
+		self.count = 0
+		
+	def makeX(self, data):
+		power = lambda x,y: x**y
+		exponents = xrange(self.degree)
+		for n in data:
+			
+			
+		return
+		
+			
+			
+	def update(self, data):
+		
+		self.count = self.count + 1
+		self.x.append(self.count)
+		self.y.append(data)
+		if len(self.x) > self.window:
+			self.x.pop()
+			self.y.pop()
+			
+		
+		
+		
+		

@@ -1,0 +1,129 @@
+import Particle_Filter
+import md_filter
+import poly_filter
+import matplotlib as mpl
+from operator import pos
+mpl.rc("savefig", dpi=150)
+import numpy as np  
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+df = pd.DataFrame.from_csv('/home/nathaniel/LSP/12-16-55/usbl_pose.csv', index_col=None)
+my_x = df['field.pose.position.x'].values.tolist()
+my_y = df['field.pose.position.y'].values.tolist()
+t = range(0, len(my_x))
+
+
+alpha = 0.25
+prop = 4.61
+n = 10
+model = lambda x,u,t : x + u*t + np.random.normal(0,np.sqrt(10),1)
+z = lambda x : x 
+x = 0
+time = [ii for ii in xrange(0,100)]
+
+particle_x = Particle_Filter.Particle_Filter(x,model,z,1000,2,10)
+particle_y = Particle_Filter.Particle_Filter(x,model,z,1000,2,10)
+md_filter = md_filter.md_filter(2, prop, n, [0, 1])
+poly_x = poly_filter.poly_filter(100, 3)
+poly_y = poly_filter.poly_filter(100, 3)
+
+new_x = []
+new_y = []
+new_z = []
+out_x = []
+out_y = []
+out_z = []
+count = []
+
+# varible to hold the last position to for plotting reasons
+
+last = [ 0 ,0 ]
+pos =last
+outliers = 0
+x_good = True
+y_good = True
+
+for i in xrange(len(t)):
+	# if not outlier out it into kalman filter
+	x_good = True
+	y_good = True
+
+	if(md_filter.update([my_x[i], my_y[i]])):
+		outliers = outliers + 1
+		x_good = poly_x.update(my_x[i])
+		y_good = poly_y.update(my_y[i])
+		
+		if x_good and y_good :
+			out_x.append(my_x[i])
+			out_y.append(my_y[i])
+			count.append(i)
+			temp_x = particle_x.update(0,my_x[ii])
+			temp_y = particle_y.update(0,my_y[ii])
+			new_x.append(temp_x)
+			new_y.append(temp_y)
+			pos = [temp_x,temp_y]
+		else:
+			if len(out_x) == 0 :
+				new_x.append(pos[0])	   
+				new_y.append(pos[1])
+			else:   
+				new_x.append(new_x[len(new_x) - 1])
+				new_y.append(new_y[len(new_y) - 1])
+	else:
+				
+		if(len(out_x) == 0):
+			out_x.append(pos[0])
+			out_y.append(pos[1])
+		else:   
+			# print len(new_x)
+			out_x.append(out_x[len(out_x) - 1])
+			out_y.append(out_y[len(out_y) - 1])
+		
+		
+		if(len(new_x) == 0):
+			new_x.append(pos[0])
+			new_y.append(pos[1])
+		else:   
+			# print len(new_x)
+			new_x.append(new_x[len(new_x) - 1])
+			new_y.append(new_y[len(new_y) - 1])
+
+
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.title("MD filter + poly filter + EKF")
+plt.xlabel('Time step')
+plt.ylabel('Distance (m)')
+# plt.title('Depth')
+
+ax1.scatter(t, my_x, color='b', label='Raw X')
+ax1.scatter(t, my_y, color='r', label='Raw Y')
+# ax1.scatter(xrange(len(my_z)), my_z, color='k',label='z')
+# ax1.scatter(t, out_x, color='m', label='Outlier output X')
+#
+# ax1.scatter(t, out_y, color='k', label='Outlier output Y')
+ax1.scatter(t, new_x, color='g', label='EKF output X')
+ax1.scatter(t, new_y, color='y', label='EKF output Y')
+# ax1.text(1,6, 'n = ' + str(n),fontsize=20, bbox={'facecolor':'red', 'alpha':0.5, 'pad':20})
+ax1.text(-10,10 , unicode(u"\u03B1") + " =  " + str(alpha), fontsize=15)
+
+# ax1.text(-25, 4, 'n=  ' + str(n) + '\n' + 'q = ' + str(q) + '\n' + 'r = ' + str(r) , fontsize=20, bbox={'facecolor':'red', 'alpha':0.5, 'pad':10})
+# ax2.scatter(t, new_z, color='g')
+legend = ax1.legend(loc='lower center', shadow=True)
+
+frame = legend.get_frame()
+for label in legend.get_texts():
+	label.set_fontsize('large')
+
+for label in legend.get_lines():
+	label.set_linewidth(1.5)  # the legend line width
+
+
+
+print "good data = " + str(100* float(outliers)/float(len(t))) + "%"
+plt.show()
+
+
+

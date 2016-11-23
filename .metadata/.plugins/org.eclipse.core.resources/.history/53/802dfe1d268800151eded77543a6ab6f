@@ -1,0 +1,102 @@
+import numpy as np
+import poly_filter
+import matplotlib as mpl
+mpl.rc("savefig", dpi=150)
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import pandas as pd
+
+
+
+
+
+df = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/15_21_23/usbl_pose.csv', index_col=None)
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.title("New wieghting")
+plt.xlabel('Time step')
+plt.ylabel('Distance (m)')
+
+print "start"
+ 
+# poly = poly_filter.poly_filter(100,3)
+#  
+# my_y = df['field.pose.position.y'].values.tolist()
+# 
+# 
+#  
+# for i in xrange(len(my_y)):
+# 	y = my_y[i]
+# 	if poly.update(y):
+#  		ax1.scatter(i, y, color='b')
+#  	else:
+#  		ax1.scatter(i, y, color='r')
+#  
+# plt.show()
+	
+
+
+
+poly = poly_filter.poly_filter(3,3)
+poly.update(1)
+poly.update(2)
+poly.update(3)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+poly.update(4)
+
+'''
+
+
+
+
+def getCoef(y,x,weights):
+		
+		my_x = make_x(x)	
+		temp1 = np.dot( np.transpose(my_x) , weights )  
+				
+		temp2 = np.dot(temp1, my_x)
+		
+		
+		temp3 = np.linalg.inv(temp2)
+				
+		temp4 = np.dot(temp3, np.transpose(my_x))
+	
+		
+		temp5 = np.dot(temp4, weights)
+		
+		temp6 = np.dot(temp5, np.transpose(y))
+		print temp6
+		
+def make_x( data):
+		
+	m = []
+	for x in data:
+		temp = []
+		for i in xrange(3+1):
+			temp.append(x**i)
+		#print temp
+		m.append(temp)
+	#print np.transpose(zip(*m))
+	m = (zip(*m))
+	return  np.transpose(np.transpose(zip(*m)))
+
+
+
+
+
+x = [ 1,2,3]
+y = [1,2,3]
+weights = np.diag( [1 for _ in xrange(3)] )
+getCoef(y, x, weights)
+
+'''

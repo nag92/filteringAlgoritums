@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Filter02/md_fitler.py&apos; to &apos;md_filter.py&apos;" description="Rename resource &apos;md_fitler.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="md_fitler.py" name="md_filter.py" stamp="1439665457154" updateReferences="true"/>
+</session>

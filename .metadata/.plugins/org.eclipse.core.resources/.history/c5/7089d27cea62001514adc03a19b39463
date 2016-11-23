@@ -1,0 +1,52 @@
+'''
+Created on Sep 23, 2015
+
+@author: nathaniel
+'''
+import matplotlib as mpl
+
+mpl.rc("savefig", dpi=150)
+import numpy as np  
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/15_21_23/usbl_pose.csv', index_col=None)
+df2 = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/15_21_23/pose_only.csv', index_col=None)
+
+my_x = df['field.pose.position.x'].values.tolist()
+my_y = df['field.pose.position.y'].values.tolist()
+my_z = df2['field.position.z'].values.tolist()
+
+for i in xrange(len(my_z)):
+   my_z[i] = -(1000 * my_z[i] - 101.325) / 9.81
+   # print my_z[i]
+
+step = int(len(my_z) / len(my_x)) + 1
+k = -1
+for i in xrange(len(my_z)):
+   print 'i : ' + str(i) # print i%step
+   if(i % step == 0):
+      k = int(i / step) 
+ 
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.xlabel('Time step')
+plt.ylabel('Distance (m)')
+
+
+
+
+legend = ax1.legend(loc='lower center', shadow=True)
+
+frame = legend.get_frame()
+for label in legend.get_texts():
+    label.set_fontsize('large')
+
+for label in legend.get_lines():
+    label.set_linewidth(1.5)  # the legend line width
+    
+    
+  #2.5
+  #[   
+    
+   

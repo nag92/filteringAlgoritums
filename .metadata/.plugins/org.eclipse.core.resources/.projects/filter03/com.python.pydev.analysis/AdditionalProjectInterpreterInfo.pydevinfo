@@ -1,0 +1,101 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/nathaniel/Documents/pythonWorkSpace/.metadata/.plugins/org.eclipse.core.resources/.projects/filter03/com.python.pydev.analysis/v2_indexcache
+position_graph|1451829302000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/position_graph.py
+poly_filter|1450723331000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/poly_filter.py
+position_graph_with_poly|1475842568000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/position_graph_with_poly.py
+poly_test|1450723452000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/poly_test.py
+test|1449064856000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/test.py
+kalman_filter|1452800968000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/kalman_filter.py
+md_filter|1444854673000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/md_filter.py
+md_filter02|1444854673000|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/md_filter02.py
+-- END DISKCACHE
+-- START DICTIONARY
+15
+2=position_graph
+1=position_graph_with_poly
+7=test
+15=poly_filter.__init__
+4=md_filter
+10=kalman_filter.update
+5=md_filter02
+11=kalman_filter.predict
+13=md_filter.__init__
+8=poly_filter
+6=poly_test
+14=poly_filter.update
+3=kalman_filter
+12=md_filter.update
+9=kalman_filter.__init__
+-- END DICTIONARY
+-- START TREE 1
+36
+A|2|A!11@A!19@
+B|2|B!19@B!11@
+C|2|C!19@C!11@
+P|2|P!19@P!11@
+Q|2|Q!19@Q!11@
+R|2|R!11@R!19@
+U|2|U!11@U!19@
+Z|2|Z!11@Z!19@
+alp|2|alpha!19@alpha!11@
+ax1|2|ax1!11@ax1!19@
+cou|2|count!19@count!11@
+df|2|df!19@df!11@
+df2|2|df2!11@df2!19@
+dt|2|dt!19@dt!11@
+f1|2|f1!19@f1!11@
+fra|2|frame!11@frame!19@
+kal|3|kalman!11@kalman!19@kalman_filter!25@
+las|2|last!19@last!11@
+leg|2|legend!11@legend!19@
+md_|4|md_filter!33@md_filter!19@md_filter!11@md_filter!41@
+my_|6|my_z!19@my_z!11@my_x!19@my_x!11@my_y!19@my_y!11@
+n|2|n!11@n!19@
+new|6|new_x!19@new_x!11@new_z!19@new_y!11@new_y!19@new_z!11@
+out|8|out_z!11@out_x!11@out_x!19@out_y!19@out_y!11@outliers!19@outliers!11@out_z!19@
+pol|5|poly!51@poly!59@poly_y!11@poly_filter!65@poly_x!11@
+pos|2|pos!19@pos!11@
+pro|2|prop!11@prop!19@
+q|2|q!19@q!11@
+r|2|r!11@r!19@
+rea|2|real_z!19@real_z!11@
+t|2|t!11@t!19@
+wei|1|weights!51@
+x|1|x!51@
+x_g|1|x_good!11@
+y|1|y!51@
+y_g|1|y_good!11@
+-- END TREE
+-- START TREE 2
+29
+A|1|A!9&27@
+B|1|B!9&27@
+C|1|C!9&27@
+P|3|P!10&27@P!11&27@P!9&27@
+Q|1|Q!9&27@
+R|1|R!9&27@
+__i|4|__init__!4&34@__init__!8&66@__init__!4&42@__init__!3&26@
+bis|1|bisquare!8&66@
+cou|6|count!12&43@count!13&43@count!14&67@count!15&67@count!12&35@count!13&35@
+deg|1|degree!15&67@
+fil|1|file!15&67@
+get|5|get_residuals!8&66@getState!3&26@getNoise!4&34@getCoef!8&66@getNoise!4&42@
+mak|1|make_x!8&66@
+md_|2|md_list!13&43@md_list!13&35@
+mov|1|move!3&26@
+noi|4|noise!12&35@noise!13&35@noise!12&43@noise!13&43@
+old|1|old_MSE!14&67@
+pre|1|predict!3&26@
+ran|2|range!13&43@range!13&35@
+reg|1|regress!8&66@
+siz|2|size!13&35@size!13&43@
+sta|3|state!10&27@state!11&27@state!9&27@
+tem|2|temp!4&43@temp!4&35@
+thr|2|threshold!13&43@threshold!13&35@
+tim|1|time!14&67@
+upd|4|update!4&42@update!4&34@update!3&26@update!8&66@
+var|2|var_list!13&43@var_list!13&35@
+win|3|window!13&43@window!15&67@window!13&35@
+x|1|x!15&67@
+-- END TREE

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;filter/src/movirPlot&apos; to &apos;movirPlot.py&apos;" description="Rename resource &apos;movirPlot&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/movirPlot" name="movirPlot.py" stamp="1437659143600" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;filter/src/movirPlot.py&apos; to &apos;moviePlot.py&apos;" description="Rename resource &apos;movirPlot.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/movirPlot.py" name="moviePlot.py" stamp="1437659153285" updateReferences="true"/>
+</session>

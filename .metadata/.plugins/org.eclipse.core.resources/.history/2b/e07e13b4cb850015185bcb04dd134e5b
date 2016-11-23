@@ -1,0 +1,70 @@
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+from chardet.test import count
+import numpy as np
+class poly_filter(object):
+	'''
+	classdocs
+	'''
+
+
+	def __init__(self,window_size,degree):
+		'''
+		Constructor
+		'''
+		self.window = window_size
+		self.degree
+		self.degree = degree
+		self. y = []
+		self.x = []
+		self.count = 0
+		
+			
+			
+	def update(self, data):
+		
+		self.count = self.count + 1
+		self.x.append(self.count)
+		self.y.append(data)
+		x = []
+		coef = []
+		weights = [1 for _ in xrange(self.window)]
+		isGood = True
+		if len(self.x) > self.window:
+			self.x.pop()
+			self.y.pop()
+			coef = self.getCoef(self.y, self.x, weights)
+			
+	
+	def getCoef(self, y,x,weights):
+		my_x = self.make_x(x)	
+		temp1 = np.dot( np.transpose(zip(*my_x)) , weights )  
+		temp2 = np.dot(temp1, my_x) 
+		temp3 = np.linalg.inv(np.vstack(np.vstack(temp2)))
+		temp4 = np.dot(temp3,weights)
+		temp5 = np.dot(temp4, y)
+		return temp5
+		
+			
+			
+	def make_x(self,  data):
+		m = []
+		for x in data:
+			temp = []
+			for i in xrange(3):
+				temp.append(x**i)
+		#print temp
+		m.append(temp)
+	#print np.transpose(zip(*m))
+		return np.transpose(zip(*m))
+		
+			
+	def get_residuals(self,y,x, coef ):
+		ybar = np.polyval(x, coef)
+		
+		
+		
+		

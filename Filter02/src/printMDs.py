@@ -1,0 +1,73 @@
+'''
+Created on Oct 3, 2015
+Print all the mds in  the list and give the probablity of a outlier showing up
+@author: nathaniel
+'''
+
+
+import matplotlib as mpl
+mpl.rc("savefig", dpi=150)
+import numpy as np  
+import pandas as pd
+import matplotlib.pyplot as plt
+import md_filter
+import scipy.stats as stats
+
+df1 = pd.DataFrame.from_csv('usbl_pose.csv', index_col=None)
+df2 = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/13_06_56/usbl_pose.csv', index_col=None)
+df3 = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/13_30_49/usbl_pose.csv', index_col=None)
+df4 = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/15_21_23/usbl_pose.csv', index_col=None)
+df5 = pd.DataFrame.from_csv('/home/nathaniel/LSP/11-08-54/usbl_pose.csv', index_col=None)
+df6 = pd.DataFrame.from_csv('/home/nathaniel/LSP/11-23-50/usbl_pose.csv', index_col=None)
+df7 = pd.DataFrame.from_csv('/home/nathaniel/LSP/12-16-55/usbl_pose.csv', index_col=None)
+
+d = [df1,df2,df3,df4,df5,df6,df7]
+
+n = 10
+
+percent_of_outleirs = []
+noise = []
+all_noise = [] 
+
+for dist in d:	
+	my_x = dist['field.pose.position.x'].values.tolist()
+	my_y = dist['field.pose.position.y'].values.tolist()
+	my_filter = md_filter.md_filter(2, [1.386, 1.386], n, [1, 2])
+	outliers = 0
+	
+	#noise = []
+	t = range(0, len(my_x))
+	for i in xrange(len(t)):
+		if not (my_filter.update([my_x[i], my_y[i]])):
+			outliers+=1 
+		noise.append(my_filter.getNoise()) 
+		
+ 	#all_noise.append(noise)
+ 	percent_of_outleirs.append( float(outliers)/ float(len(t))  )
+
+
+
+print percent_of_outleirs
+print "mean of percent= " + str( np.mean(percent_of_outleirs))
+print  "std of percents= " + str( np.std(percent_of_outleirs))
+print "mean of noise= " + str(np.mean(noise))
+print "std of noise = " + str(np.std(noise))
+noise_fit = stats.norm.pdf(noise, np.mean(noise), np.std(noise))  #this is a fitting indeed
+percent_fit = stats.norm.pdf(percent_of_outleirs, np.mean(percent_of_outleirs), np.std(percent_of_outleirs))  #this is a fitting indeed
+
+
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+plt.ylabel('Frequency',fontsize=20)
+plt.xlabel('Mahalanobis Distances',fontsize=20)
+plt.title("Distribution of the Mahalanobis Distances",fontsize=20)
+
+ax1.scatter(noise, noise_fit, color='k')
+#plt.hist(noise)
+
+
+
+print np.sqrt(2.77)
+
+
+plt.show()

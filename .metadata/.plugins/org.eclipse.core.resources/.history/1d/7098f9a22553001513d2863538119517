@@ -1,0 +1,7 @@
+import numpy as np
+import random
+
+for i in xrange(self.size):
+			temp = [ random.uniform(self.range[0], self.range[1]) for _ in xrange(0, self.window)]
+			self.var_list.append(temp)
+			

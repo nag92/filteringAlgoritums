@@ -1,0 +1,49 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/nathaniel/Documents/pythonWorkSpace/.metadata/.plugins/org.eclipse.core.resources/.projects/outlier_filter/com.python.pydev.analysis/v2_indexcache
+plot_usbl|1436748326000|/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/src/plot_usbl.py
+3D_animate_Plot|1435757723000|/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/src/3D_animate_Plot.py
+outlier_filter|1439578781000|/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/src/outlier_filter.py
+covTest|1441385908000|/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/src/covTest.py
+Print_outlier|1437658334000|/home/nathaniel/Documents/pythonWorkSpace/outlier_filter/src/Print_outlier.py
+-- END DISKCACHE
+-- START DICTIONARY
+6
+4=3D_animate_Plot
+3=plot_usbl
+1=outlier_filter
+6=DynamicUpdate
+5=covTest
+2=Print_outlier
+-- END DICTIONARY
+-- START TREE 1
+21
+ax|1|ax!11@
+ax1|2|ax1!19@ax1!27@
+d|1|d!35@
+d1|1|d1!27@
+del|1|delta!27@
+df|2|df!19@df!27@
+dyn|1|DynamicUpdate!33@
+fig|3|fig!11@fig!27@fig!19@
+fil|10|filter!10@filt_y!27@filt_y!19@filt_depth!11@filt_x!27@filt_x!11@filt_x!19@filt_depth!19@filt_depth!27@filt_y!11@
+md|3|md!11@md!27@md!19@
+mea|1|mean!27@
+my_|8|my_x!19@my_z!27@my_depth!19@my_z!19@my_x!27@my_y!19@my_depth!27@my_y!27@
+n|3|n!27@n!11@n!19@
+out|9|out_depth!27@out_y!27@outlier_depth!11@outlier_y!11@out_y!19@outlier_x!11@out_x!27@out_x!19@out_depth!19@
+siz|1|size!43@
+std|1|std!27@
+tem|1|temp!43@
+upd|2|update!26@update!18@
+var|1|var_list!43@
+x_l|3|x_list!27@x_list!11@x_list!19@
+y_l|3|y_list!27@y_list!19@y_list!11@
+-- END TREE
+-- START TREE 2
+4
+__c|1|__call__!6&34@
+max|1|max_x!6&35@
+min|1|min_x!6&35@
+on_|2|on_running!6&34@on_launch!6&34@
+-- END TREE

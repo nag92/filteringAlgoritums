@@ -1,0 +1,99 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/nathaniel/Documents/pythonWorkSpace/.metadata/.plugins/org.eclipse.core.resources/.projects/EKF_test/com.python.pydev.analysis/v2_indexcache
+poly_filter|1451913692000|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/poly_filter.py
+full_EKF_test|1451918039000|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/full_EKF_test.py
+EKF_test02|1451913549000|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/EKF_test02.py
+md_filter|1444854673000|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/md_filter.py
+EKF|1451835186000|/home/nathaniel/Documents/pythonWorkSpace/EKF_test/src/EKF.py
+-- END DISKCACHE
+-- START DICTIONARY
+11
+10=md_filter.__init__
+5=poly_filter
+1=full_EKF_test
+11=EKF.update
+7=poly_filter.update
+6=EKF.__init__
+2=EKF_test02
+9=md_filter.update
+8=poly_filter.__init__
+4=md_filter
+3=EKF
+-- END DICTIONARY
+-- START TREE 1
+41
+Q|2|Q!11@Q!19@
+R|2|R!11@R!19@
+alp|1|alpha!11@
+ax|1|ax!19@
+ax1|1|ax1!11@
+cou|1|count!11@
+df|2|df!19@df!11@
+ekf|3|ekf!19@EKF!25@ekf!11@
+f1|2|f1!19@f1!11@
+fra|2|frame!19@frame!11@
+g|2|g!11@g!19@
+h|2|h!19@h!11@
+las|1|last!11@
+leg|2|legend!11@legend!19@
+loc|1|loc!19@
+md_|2|md_filter!33@md_filter!11@
+my_|4|my_y!11@my_y!19@my_x!19@my_x!11@
+n|1|n!11@
+new|3|new_x!11@new_z!11@new_y!11@
+out|4|out_y!11@out_x!11@outliers!11@out_z!11@
+p|2|p!19@p!11@
+pol|3|poly_x!11@poly_y!11@poly_filter!41@
+pos|1|pos!11@
+pre|1|predicted_path!19@
+pro|1|prop!11@
+rea|1|real_path!19@
+sig|2|sigma!19@sigma!11@
+t|1|t!11@
+tem|2|temp!19@temp!11@
+tim|1|time!19@
+u|2|u!19@u!11@
+v|2|v!11@v!19@
+vx|2|vx!19@vx!11@
+x|2|x!19@x!11@
+x_g|1|x_good!11@
+y_g|1|y_good!11@
+z|2|z!19@z!11@
+z1|2|z1!11@z1!19@
+z2|2|z2!19@z2!11@
+z3|2|z3!19@z3!11@
+z4|2|z4!19@z4!11@
+-- END TREE
+-- START TREE 2
+29
+G|1|G!6&27@
+H|1|H!6&27@
+Q|1|Q!6&27@
+R|1|R!6&27@
+__i|3|__init__!4&34@__init__!5&42@__init__!3&26@
+bis|1|bisquare!5&42@
+cou|4|count!7&43@count!8&43@count!9&35@count!10&35@
+deg|1|degree!8&43@
+eva|2|eval_model!3&26@eval_sensor!3&26@
+fil|1|file!8&43@
+g|1|g!6&27@
+get|3|get_residuals!5&42@getNoise!4&34@getCoef!5&42@
+h|1|h!6&27@
+mak|1|make_x!5&42@
+md_|1|md_list!10&35@
+noi|2|noise!9&35@noise!10&35@
+old|1|old_MSE!7&43@
+ran|1|range!10&35@
+reg|1|regress!5&42@
+sig|2|sigma!11&27@sigma!6&27@
+siz|1|size!10&35@
+sta|2|state!11&27@state!6&27@
+tem|1|temp!4&35@
+thr|1|threshold!10&35@
+tim|1|time!7&43@
+upd|3|update!4&34@update!5&42@update!3&26@
+var|1|var_list!10&35@
+win|2|window!8&43@window!10&35@
+x|1|x!8&43@
+-- END TREE

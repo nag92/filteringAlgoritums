@@ -1,0 +1,21 @@
+import numpy as np
+import itertools
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+power = lambda x,y: x**y
+exponents = zip(xrange(3))
+data = [1, 2, 3, 4]
+data = np.vstack(data)
+m = []
+for x in data:
+	temp = []
+	for y in xrange(3):
+		temp.append(x**y)
+	m.append(temp) 
+print np.transpose(m)
+	
+
+print [1 for _ in xrange(10)]

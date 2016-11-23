@@ -1,0 +1,14 @@
+MODULES_MANAGER_V2
+accleration_model|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/accleration_model.py
+calibrateAngles|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/calibrateAngles.py
+getError|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/getError.py
+kalmanTest|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/kalmanTest.py
+kalman_filter|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/kalman_filter.py
+md_filter|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/md_filter.py
+md_filter02|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/md_filter02.py
+orentation_graph2|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/orentation_graph2.py
+orentation_graph_euler|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/orentation_graph_euler.py
+position_graph|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/position_graph.py
+printMDs|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/printMDs.py
+print_accel|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/print_accel.py
+transformations|/home/nathaniel/Documents/pythonWorkSpace/Filter02/src/transformations.py

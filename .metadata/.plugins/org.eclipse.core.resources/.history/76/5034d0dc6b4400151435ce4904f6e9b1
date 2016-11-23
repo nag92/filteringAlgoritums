@@ -1,0 +1,138 @@
+'''
+Created on Jul 10, 2015
+
+@author: nathaniel, I&E summer 2015
+This program use a kalman filer to smooth the Quaternion of the videoray
+
+'''
+import kalman_filter
+import md_filter
+import matplotlib as mpl
+from numpy import arctan2, arcsin
+mpl.rc("savefig", dpi=150)
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import math
+# import rospy
+
+
+mpl.rcParams.update({'font.size': 18})
+# import and save data from a CSV file
+
+df = pd.DataFrame.from_csv('/home/nathaniel/KingsPointData/15_21_23/pose_only.csv', index_col=None)
+# print df
+my_x = df['field.orientation.x'].values.tolist()
+my_y = df['field.orientation.y'].values.tolist()
+my_z = df['field.orientation.z'].values.tolist()
+my_w = df['field.orientation.w'].values.tolist()
+t = range(0, len(my_x)/10)
+print len(t)
+print len(my_w)
+
+roll = []
+pitch = []
+yaw = []
+
+
+out_roll = []
+out_pitch = []
+out_yaw = []
+
+new_roll = []
+new_pitch = []
+new_yaw = []
+
+r = 50000
+q = .05
+
+for i in xrange(len(t)):
+	q1 = my_y[i]
+	q2 = my_x[i]*-1 
+	q3 = my_z[i] *-1
+	q0 = my_w[i]
+	roll.append((180 / math.pi) * arctan2(2 * (q0 * q1 + q2 * q3), 1 - 2 * (q1 * q1 + q2 * q2)))
+	pitch.append((180 / math.pi) * arcsin(2 * (q0 * q2 - q3 * q1)))
+	yaw.append((180 / math.pi) * arctan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (q2 * q2 + q3 * q3)))
+
+
+
+dt = .043
+pos = np.matrix([[0],  # v_x
+				[0],  # v_y
+				[0],  # v_z
+				[roll[0]],  # x
+				[pitch[0]],  # y
+				[yaw[0]]])  # z
+A = np.matrix([[1, 0, 0, 0, 0, 0, ],
+			    [0, 1, 0, 0, 0, 0, ],
+				[0, 0, 1, 0, 0, 0, ],
+				[dt, 0, 0, 1, 0, 0, ],
+				[0, dt, 0, 0, 1, 0, ],
+				[0, 0, dt, 0, 0, 1, ]])
+B = np.matrix([0])
+C = np.eye(pos.shape[0])
+Q = np.eye(pos.shape[0]) * q
+R = np.eye(pos.shape[0]) * r
+P = np.eye(pos.shape[0])
+U = np.matrix([[0]])
+Z = np.matrix([[0], [0], [0], [0], [0], [0] ])
+
+kalman = kalman_filter.kalman_filter(A, B, C, Q, P, R, pos)
+
+md_filter = md_filter.md_filter(3, [1.6,1.5],20, [-180,180])
+
+last = pos
+outliers = 0
+for i in xrange(len(t)):
+		
+		Z = np.matrix([[0], [0], [0], [roll[i]], [pitch[i]], [yaw[i]]])
+		U = np.matrix([[0]])
+		kalman.move(U, Z)
+		pos = kalman.getState()
+		
+		new_roll.append(pos[3])
+		new_pitch.append(pos[4])
+		new_yaw.append(pos[5])
+
+print outliers 
+f1 = plt.figure()
+ax1 = f1.add_subplot(111)
+# plt.axis([0, len(t), -1.2,1.2 ])
+plt.xlabel('Time step')
+plt.ylabel('angle')
+  
+ax1.scatter(t, roll, color='r', label='roll')
+ax1.scatter(t, pitch, color='b', label='pitch')
+ax1.scatter(t, yaw, color='g', label='yaw')
+
+legend = ax1.legend(loc='lower center', shadow=True)
+frame = legend.get_frame()
+for label in legend.get_texts():
+	label.set_fontsize('large')
+  
+for label in legend.get_lines():
+	label.set_linewidth(1.5)  # the legend line width
+
+
+f3 = plt.figure()
+ax3 = f3.add_subplot(111)
+# plt.axis([0, len(t), -1.2,1.2 ])
+plt.xlabel('Time step')
+plt.ylabel('angle')
+
+ax3.scatter(t, new_roll, color='r', label=' Kalman roll')
+ax3.scatter(t, new_pitch, color='b', label='Kalman pitch')
+ax3.scatter(t, new_yaw, color='g', label='Kalman yaw')
+
+
+legend = ax3.legend(loc='lower center', shadow=True)
+frame = legend.get_frame()
+for label in legend.get_texts():
+	label.set_fontsize('large')
+
+for label in legend.get_lines():
+	label.set_linewidth(1.5)  # the legend line width
+plt.show()
+
+

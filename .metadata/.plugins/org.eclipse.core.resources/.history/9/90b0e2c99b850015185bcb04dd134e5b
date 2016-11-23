@@ -1,0 +1,13 @@
+import numpy as np
+import itertools
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+power = lambda x,y: x**y
+exponents = zip(xrange(3))
+data = [1, 2, 3, 4]
+data = np.vstack(data)
+
+print list(itertools.starmap, [data,exponents])

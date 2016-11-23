@@ -1,0 +1,5 @@
+count.x = 0
+def count():
+    
+    count.x+=1
+    return count.x

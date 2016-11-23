@@ -1,0 +1,36 @@
+import numpy as np
+
+'''
+Created on Nov 7, 2015
+
+@author: nathaniel
+'''
+power = lambda x,y: x**y
+
+
+def regress(y,x,weights):
+		my_x = make_x(x)	
+		print my_x	
+		temp1 = np.transpose(my_x )#* weights * my_x # *  np.transpose(my_x )* weights * y
+		print temp1
+				
+			
+			
+def make_x( data):
+	m = []
+	for x in data:
+		temp = []
+		for y in xrange(4):
+			temp.append(x**y)
+			m.append(temp) 
+			
+	return m
+
+
+
+
+x = np.vstack([1,2,3 ])
+y = np.vstack([1,2,3 ])
+w = np.vstack([1,1,1 ])
+print np.transpose(make_x(x))
+

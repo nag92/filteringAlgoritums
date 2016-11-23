@@ -1,0 +1,9 @@
+MODULES_MANAGER_V2
+kalman_filter|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/kalman_filter.py
+md_filter|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/md_filter.py
+md_filter02|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/md_filter02.py
+poly_filter|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/poly_filter.py
+poly_test|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/poly_test.py
+position_graph|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/position_graph.py
+position_graph_with_poly|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/position_graph_with_poly.py
+test|/home/nathaniel/Documents/pythonWorkSpace/filter03/src/test.py
